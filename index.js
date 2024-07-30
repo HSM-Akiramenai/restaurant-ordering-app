@@ -150,8 +150,7 @@ function handlePayBtnClick(e) {
   const customerName = paymentFormData.get("customerName");
 
   displayConfirmationMessage(customerName);
-  paymentForm.reset();
-  checkoutArray.length = 0;
+  clearAppState();
 }
 
 // DISPLAY ORDER CONFIRMATION MESSAGE
@@ -164,6 +163,14 @@ function displayConfirmationMessage(name) {
 
   toggleVisibility(false, checkoutSection, paymentSection, overlay);
   toggleVisibility(true, orderPlaced);
+}
+
+// ClEAR APP STATE
+
+function clearAppState() {
+  checkoutArray.length = 0;
+  totalPrice = 0;
+  paymentForm.reset();
 }
 
 // CLOSE PAYMENT MODAL
