@@ -126,10 +126,10 @@ function removeItemFromCheckoutArray(checkoutItemId) {
   const itemToRemove = checkoutArray.find(
     (checkoutItem) => checkoutItem.id === checkoutItemId
   );
-
   const index = checkoutArray.indexOf(itemToRemove);
 
   checkoutArray.splice(index, 1);
+  updateTotalPrice();
 }
 
 // COMPLETE ORDER HANDLER
@@ -139,7 +139,6 @@ function handleCompleteOrderBtnClick() {
     "payment-form-btn"
   ).textContent = `Pay $${totalPrice}`;
   toggleVisibility(true, overlay, paymentSection);
-  checkoutArray.length = 0;
 }
 
 // PAYMENT BUTTON HANDLER
@@ -152,6 +151,7 @@ function handlePayBtnClick(e) {
 
   displayConfirmationMessage(customerName);
   paymentForm.reset();
+  checkoutArray.length = 0;
 }
 
 // DISPLAY ORDER CONFIRMATION MESSAGE
