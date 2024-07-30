@@ -1,72 +1,85 @@
 <html>
-    <head>
-       <link rel="stylesheet" href="index.css">
-       <!-- SMYTHE FONT -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Smythe&display=swap" rel="stylesheet">
-        <!-- INTER FONT -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Smythe&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <header class="header-container">
-                <h1>Haider's Diner</h1>
-                <p>The best burgers and pizzas in town</p>
-                <img src="/images/burger-header.png" alt="A close-up of a cooked burger on a wooden surface, featuring a bun, lettuce, onion, cheese, and a beef patty.">
-        </header>
-        <main class="main-container">
-            <section id="menu-section" class="menu-section">
-                <!-- MENU ITEMS HERE -->
-            </section>
-            <section id="checkout-section" class="checkout-section">
-                <h2 class="checkout-title">Your order</h2>
-                <div id="checkout-details" class="checkout-details">
-                    <!-- CHECKOUT ITEMS HERE -->
-                </div>
-                <div class="checkout-total">
-                    <h3 class="checkout-total-title">Total price:</h3>
-                    <p id="checkout-total-price" class="checkout-total-price">
-                        <!-- UPDATED TOTAL PRICE HERE -->
-                    </p>
-                </div>
-                <button id="checkout-order-btn" class="checkout-order-btn">Complete Order</button>
-            </section>
-            <div id="order-placed" class="order-placed">
-                <!-- THANK YOU MESSAGE HERE -->
-            </div>
-        </main>
-        <div id="payment-section" class="payment-section">
-            <h2 class="payment-title">Enter card details</h2>
-            <form id="payment-form" class="payment-form">
-                <input 
-                    id="name-input"
-                    required
-                    type="text" 
-                    minlength="4"
-                    placeholder="Enter your name"
-                >
-                <input 
-                    id="card-input"
-                    required
-                    type="text"
-                    minlength="16"
-                    maxlength="16" 
-                    placeholder="Enter card number"
-                >
-                <input 
-                    id="cvv-input"
-                    required
-                    type="text" 
-                    minlength="3"
-                    maxlength="4"
-                    placeholder="Enter CVV"
-                >
-                <button id="payment-form-btn" type="submit" class="payment-form-btn">Pay</button>
-            </form>
+  <head>
+    <link rel="stylesheet" href="index.css" />
+    <!-- SMYTHE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Smythe&display=swap"
+      rel="stylesheet"
+    />
+    <!-- INTER FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Smythe&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header-container">
+      <h1>Haider's Diner</h1>
+      <p>The best burgers and pizzas in town</p>
+      <img
+        src="/images/burger-header.png"
+        alt="A close-up of a cooked burger on a wooden surface, featuring a bun, lettuce, onion, cheese, and a beef patty."
+      />
+    </header>
+    <main class="main-container">
+      <section id="menu-section" class="menu-section">
+        <!-- MENU ITEMS HERE -->
+      </section>
+      <section id="checkout-section" class="checkout-section">
+        <h2 class="checkout-title">Your order</h2>
+        <div id="checkout-details" class="checkout-details">
+          <!-- CHECKOUT ITEMS HERE -->
         </div>
-        <script type="module" src="index.js"></script>
-    </body>
+        <div class="checkout-total">
+          <h3 class="checkout-total-title">Total price:</h3>
+          <p id="checkout-total-price" class="checkout-total-price">
+            <!-- UPDATED TOTAL PRICE HERE -->
+          </p>
+        </div>
+        <button id="checkout-order-btn" class="checkout-order-btn">
+          Complete Order
+        </button>
+      </section>
+      <div id="order-placed" class="order-placed">
+        <!-- THANK YOU MESSAGE HERE -->
+      </div>
+    </main>
+    <div id="payment-section" class="payment-section">
+      <h2 class="payment-title">Enter card details</h2>
+      <form id="payment-form" class="payment-form">
+        <input
+          id="name-input"
+          required
+          type="text"
+          minlength="4"
+          maxlength="25"
+          placeholder="Enter your name"
+        />
+        <input
+          id="card-input"
+          required
+          type="text"
+          minlength="16"
+          maxlength="16"
+          placeholder="Enter card number"
+        />
+        <input
+          id="cvv-input"
+          required
+          type="text"
+          minlength="3"
+          maxlength="4"
+          placeholder="Enter CVV"
+        />
+        <button id="payment-form-btn" type="submit" class="payment-form-btn">
+          Pay
+        </button>
+      </form>
+    </div>
+    <script type="module" src="index.js"></script>
+  </body>
 </html>
-
