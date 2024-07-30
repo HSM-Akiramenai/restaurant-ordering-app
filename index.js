@@ -114,16 +114,15 @@ function handleCompleteOrderBtnClick() {
 
 function handlePayBtnClick(e) {
   const nameInput = document.getElementById("name-input");
-
   const paymentForm = document.getElementById("payment-form");
 
   e.preventDefault();
 
-  toggleVisibility(paymentSection, false);
   toggleVisibility(checkoutSection, false);
-  paymentForm.reset();
-
+  toggleVisibility(paymentSection, false);
   displayConfirmationMessage(nameInput.value);
+
+  paymentForm.reset();
 }
 
 function displayConfirmationMessage(name) {
