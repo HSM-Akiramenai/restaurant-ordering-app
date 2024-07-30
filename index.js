@@ -1,10 +1,17 @@
 import menuArray from "/data.js";
 
-const orderPlaced = document.getElementById("order-placed");
+const checkoutArray = [];
+let totalPrice = 0;
+
 const checkoutSection = document.getElementById("checkout-section");
 const paymentSection = document.getElementById("payment-section");
+const overlay = document.getElementById("overlay");
+const paymentForm = document.getElementById("payment-form");
+const orderPlaced = document.getElementById("order-placed");
 
-const checkoutArray = [];
+// EVENT LISTENERS
+
+paymentForm.addEventListener("submit", handlePayBtnClick);
 
 document.addEventListener("click", (e) => {
   if (e.target.dataset.add) {
@@ -13,12 +20,16 @@ document.addEventListener("click", (e) => {
     handleRemoveBtnClick(Number(e.target.dataset.remove));
   } else if (e.target.id === "checkout-order-btn") {
     handleCompleteOrderBtnClick();
-  } else if (e.target.id === "payment-form-btn") {
-    handlePayBtnClick(e);
+  } else if (e.target.id === "payment-close-btn") {
+    handlePayCloseBtnClick();
   }
 });
 
+// INITIAL FUNCTION CALL (RENDER MENU ITEMS)
+
 renderMenu(menuArray);
+
+// RENDER MENU ITEMS IN MENU SECTION
 
 function renderMenu(menuItems) {
   document.getElementById("menu-section").innerHTML = menuItems
@@ -40,14 +51,16 @@ function renderMenu(menuItems) {
     .join("");
 }
 
+// ADD ITEM BUTTON HANDLER
+
 function handleAddBtnClick(menuItemId) {
-  if (orderPlaced.style.display === "flex") {
-    orderPlaced.style.display = "none";
-  }
+  toggleVisibility(false, orderPlaced);
   addItemToCheckoutArray(menuItemId);
   displayCheckoutItems();
   updateTotalPrice();
 }
+
+// ADD ITEM TO CHECKOUT ARRAY
 
 function addItemToCheckoutArray(menuItemId) {
   const itemToAdd = menuArray.find((menuItem) => {
@@ -66,12 +79,15 @@ function addItemToCheckoutArray(menuItemId) {
   }
 }
 
+// DISPLAY CHECKOUT SECTION
+
 function displayCheckoutItems() {
-  toggleVisibility(checkoutSection, true);
+  toggleVisibility(true, checkoutSection);
 
   document.getElementById("checkout-details").innerHTML = checkoutArray
     .map((checkoutItem) => {
       const { name, id, price, quantity } = checkoutItem;
+
       return `<div class="checkout-item">
                     <h3 class="checkout-item-name">${name}</h3>
                     <p class="checkout-item-quantity">x ${quantity}</p>
@@ -82,12 +98,17 @@ function displayCheckoutItems() {
     .join("");
 }
 
+// UPDATE TOTAL PRICE
+
 function updateTotalPrice() {
-  const totalPrice = checkoutArray.reduce((total, currentItem) => {
+  totalPrice = checkoutArray.reduce((total, currentItem) => {
     return total + currentItem.price;
   }, 0);
+
   document.getElementById("checkout-total-price").innerHTML = `$${totalPrice}`;
 }
+
+// REMOVE BUTTON HANDLER
 
 function handleRemoveBtnClick(checkoutItemId) {
   removeItemFromCheckoutArray(checkoutItemId);
@@ -95,35 +116,45 @@ function handleRemoveBtnClick(checkoutItemId) {
   if (checkoutArray.length > 0) {
     displayCheckoutItems();
   } else {
-    toggleVisibility(checkoutSection, false);
+    toggleVisibility(false, checkoutSection);
   }
 }
+
+// REMOVE ITEM FROM CHECKOUT ARRAY
 
 function removeItemFromCheckoutArray(checkoutItemId) {
   const itemToRemove = checkoutArray.find(
     (checkoutItem) => checkoutItem.id === checkoutItemId
   );
+
   const index = checkoutArray.indexOf(itemToRemove);
+
   checkoutArray.splice(index, 1);
 }
 
+// COMPLETE ORDER HANDLER
+
 function handleCompleteOrderBtnClick() {
-  toggleVisibility(paymentSection, true);
+  document.getElementById(
+    "payment-form-btn"
+  ).textContent = `Pay $${totalPrice}`;
+  toggleVisibility(true, overlay, paymentSection);
   checkoutArray.length = 0;
 }
 
-function handlePayBtnClick(e) {
-  const nameInput = document.getElementById("name-input");
-  const paymentForm = document.getElementById("payment-form");
+// PAYMENT BUTTON HANDLER
 
+function handlePayBtnClick(e) {
   e.preventDefault();
 
-  toggleVisibility(checkoutSection, false);
-  toggleVisibility(paymentSection, false);
-  displayConfirmationMessage(nameInput.value);
+  const paymentFormData = new FormData(paymentForm);
+  const customerName = paymentFormData.get("customerName");
 
+  displayConfirmationMessage(customerName);
   paymentForm.reset();
 }
+
+// DISPLAY ORDER CONFIRMATION MESSAGE
 
 function displayConfirmationMessage(name) {
   const thankyouMsg = document.createElement("p");
@@ -131,9 +162,20 @@ function displayConfirmationMessage(name) {
   orderPlaced.innerHTML = "";
   orderPlaced.appendChild(thankyouMsg);
 
-  toggleVisibility(orderPlaced, true);
+  toggleVisibility(false, checkoutSection, paymentSection, overlay);
+  toggleVisibility(true, orderPlaced);
 }
 
-function toggleVisibility(element, isVisible) {
-  element.style.display = isVisible ? "flex" : "none";
+// CLOSE PAYMENT MODAL
+
+function handlePayCloseBtnClick() {
+  toggleVisibility(false, paymentSection, overlay);
+}
+
+// TOGGLE ELEMENT VISIBILITY HELPER
+
+function toggleVisibility(isVisible, ...elements) {
+  elements.forEach((element) => {
+    element.style.display = isVisible ? "flex" : "none";
+  });
 }

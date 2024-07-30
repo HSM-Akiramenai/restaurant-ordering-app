@@ -48,36 +48,49 @@
         <!-- THANK YOU MESSAGE HERE -->
       </div>
     </main>
+    <div id="overlay" class="overlay"></div>
     <div id="payment-section" class="payment-section">
+      <button id="payment-close-btn" class="payment-close-btn">X</button>
       <h2 class="payment-title">Enter card details</h2>
       <form id="payment-form" class="payment-form">
         <input
           id="name-input"
+          name="customerName"
           required
           type="text"
-          minlength="4"
+          minlength="2"
           maxlength="25"
           placeholder="Enter your name"
+          pattern="[a-zA-Z ]+"
+          title="Input should only contain letters! (2-25 characters long)"
         />
         <input
           id="card-input"
+          name="customerCardNumber"
           required
           type="text"
           minlength="16"
           maxlength="16"
           placeholder="Enter card number"
+          pattern="[0-9]{16}"
+          title="Input should only contain numbers! (16 digits long)"
         />
         <input
           id="cvv-input"
+          name="customerCardCvv"
           required
           type="text"
           minlength="3"
           maxlength="4"
           placeholder="Enter CVV"
+          pattern="[0-9]+"
+          title="Input should only contain numbers! (3-4 digits long)"
         />
-        <button id="payment-form-btn" type="submit" class="payment-form-btn">
-          Pay
-        </button>
+        <button
+          id="payment-form-btn"
+          type="submit"
+          class="payment-form-btn"
+        ></button>
       </form>
     </div>
     <script type="module" src="index.js"></script>
